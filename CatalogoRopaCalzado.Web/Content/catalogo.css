@@ -1,0 +1,97 @@
+:root {
+    color-scheme: light;
+    --fondo: #f4f6f2;
+    --tinta: #182b23;
+    --suave: #526359;
+    --borde: #d7dfd9;
+    --verde: #21553f;
+    --error: #a32b2b;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fondo); color: var(--tinta); font: 16px/1.5 system-ui, sans-serif; }
+a { color: var(--verde); text-underline-offset: .2em; }
+:focus-visible { outline: 3px solid #336eab; outline-offset: 3px; }
+.contenedor { width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
+.cabecera { background: #173a2c; color: white; }
+.navegacion { display: flex; justify-content: space-between; align-items: center; min-height: 64px; gap: 1rem; }
+.navegacion a { color: white; text-decoration: none; }
+.marca { font-weight: 750; font-size: 1.15rem; }
+.enlace-nav:hover { text-decoration: underline; }
+.principal { padding-block: clamp(2rem, 5vw, 4.25rem); }
+.encabezado { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 1.75rem; }
+h1 { margin: 0; font-size: clamp(1.85rem, 4vw, 3rem); line-height: 1.12; font-weight: 750; letter-spacing: -.035em; }
+p { margin: .75rem 0; color: var(--suave); }
+.encabezado p { margin-bottom: 0; }
+.panel { background: white; border: 1px solid var(--borde); border-radius: 16px; box-shadow: 0 10px 30px rgba(30, 62, 43, .06); }
+.boton { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: .55rem 1rem; border: 1px solid transparent; border-radius: 8px; background: var(--verde); color: white; font: inherit; font-weight: 650; text-decoration: none; cursor: pointer; }
+.boton:hover { background: #173e2e; }
+.secundario { background: white; color: var(--verde); border-color: var(--borde); }
+.secundario:hover { background: #eef4ef; }
+.peligro { background: var(--error); }
+.peligro:hover { background: #812323; }
+.peligro-texto, .field-validation-error, .validation-summary-errors { color: var(--error); }
+.filtros { display: grid; grid-template-columns: 2fr 1fr auto auto; align-items: end; gap: .75rem; padding: 1.25rem; }
+.campo { display: grid; align-content: start; gap: .35rem; min-width: 0; }
+.campo label { font-weight: 650; }
+.campo small { color: var(--suave); }
+input, select { width: 100%; min-height: 44px; border: 1px solid #aebdb2; border-radius: 8px; padding: .55rem .7rem; background: white; color: inherit; font: inherit; }
+.input-validation-error { border-color: var(--error); }
+.resultados { padding: .55rem 1.25rem; color: var(--suave); border-top: 1px solid var(--borde); font-size: .88rem; }
+.tabla { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; text-align: left; }
+th, td { padding: .85rem 1.25rem; border-top: 1px solid var(--borde); }
+thead { background: #eef3ef; }
+th { font-weight: 650; }
+.numero { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.acciones { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem; }
+.aviso { padding: .8rem 1rem; border-radius: 8px; background: #e4f1e7; color: #245139; }
+.vacio { margin: 0; padding: 1.25rem; }
+.editor { max-width: 720px; margin-inline: auto; padding: clamp(1.2rem, 4vw, 2.5rem); }
+.campos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-block: 1.5rem; }
+.ancho { grid-column: 1 / -1; }
+.detalle { display: grid; grid-template-columns: auto 1fr; gap: .45rem 1.25rem; margin-block: 1.5rem; }
+.detalle dt { font-weight: 650; }
+.detalle dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 700px) {
+    .filtros { grid-template-columns: 1fr 1fr; }
+    .filtros .campo { grid-column: 1 / -1; }
+    .campos { grid-template-columns: 1fr; }
+}
+
+:root { --fondo: #f5f5f5; --tinta: #191919; --suave: #575757; --borde: #d7d7d7; --verde: #252525; --superficie: #fff; --franja: #ededed; }
+[data-bs-theme=dark] { --fondo: #161616; --tinta: #f1f1f1; --suave: #c4c4c4; --borde: #474747; --verde: #eaeaea; --superficie: #212121; --franja: #2c2c2c; --error: #ffaaaa; }
+.cabecera { background: #181818; }
+.navegacion { flex-wrap: wrap; padding: .7rem 0; }
+.navegacion .acciones { font-size: .92rem; }
+.contenedor { width: min(1320px, calc(100% - 2rem)); }
+.panel, input, select, textarea, .ficha { background: var(--superficie); color: var(--tinta); border-color: var(--borde); }
+.panel { box-shadow: none; }
+textarea { padding: .55rem .7rem; border: 1px solid var(--borde); border-radius: 8px; }
+thead { background: var(--franja); }
+.boton { background: #272727; color: white; }
+.boton:hover { background: #3a3a3a; color: white; }
+.boton.secundario { background: var(--superficie); color: var(--tinta); border-color: var(--borde); }
+.boton.secundario:hover { background: var(--franja); color: var(--tinta); }
+.boton.peligro { background: #902d2d; color: white; }
+.boton.peligro:hover { background: #752626; }
+.marco-panel { display: grid; grid-template-columns: 190px minmax(0, 1fr); align-items: start; gap: 1.4rem; }
+.lateral { display: flex; flex-direction: column; gap: .3rem; padding: .8rem; border: 1px solid var(--borde); border-radius: 12px; background: var(--superficie); }
+.lateral a, .lateral .salir { color: var(--tinta); padding: .42rem .55rem; border-radius: 6px; text-decoration: none; }
+.lateral a:hover, .lateral .salir:hover { background: var(--franja); }
+.salir { border: 0; padding: 0; background: transparent; color: inherit; font: inherit; text-decoration: underline; }
+.flujo { display: grid; gap: 1rem; margin-top: 1.25rem; }
+.flujo .boton, .campo button { justify-self: start; }
+.portada { padding: clamp(2rem, 9vw, 6rem); }
+.foto { width: 100%; height: 230px; object-fit: cover; background: var(--franja); }
+.precio { font-weight: 700; color: var(--tinta); }
+.indicador { padding: 1rem; height: 100%; }
+.indicador dd { font-size: 1.4rem; margin-bottom: 0; }
+.seleccion { display: flex; align-items: center; gap: .5rem; }
+input[type=checkbox] { width: auto; min-height: 0; }
+.cantidad input { width: 5rem; }
+.acciones input:not([type=hidden]):not([type=number]) { width: min(100%, 18rem); }
+.alerta { background: #fff3d8; color: #5b3a03; }
+@media (max-width: 760px) {
+    .marco-panel { grid-template-columns: minmax(0, 1fr); }
+    .lateral { flex-direction: row; flex-wrap: wrap; }
+}

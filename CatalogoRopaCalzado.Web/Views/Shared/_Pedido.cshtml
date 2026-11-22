@@ -1,0 +1,18 @@
+@model Pedido
+<dl class="detalle">
+    <dt>Comprador</dt><dd>@Model.CompradorNombre · @Model.CompradorCorreo</dd>
+    <dt>Fecha</dt><dd>@Model.Fecha.ToString("dd/MM/yyyy HH:mm") UTC</dd>
+    <dt>Dirección</dt><dd>@Model.Direccion</dd>
+    <dt>Método</dt><dd>@Model.MetodoPago</dd>
+    <dt>Estado del pedido</dt><dd>@Model.EstadoPedido</dd>
+    <dt>Estado del pago</dt><dd>@Model.EstadoPago</dd>
+</dl>
+<div class="panel tabla my-3"><table>
+<thead><tr><th>Producto</th><th>Cantidad</th><th>Precio unitario</th><th>Subtotal</th></tr></thead>
+<tbody>
+@foreach (var linea in Model.Detalles)
+{
+    <tr><th scope="row">@linea.Nombre</th><td>@linea.Cantidad</td><td>$@linea.Precio.ToString("N2")</td><td>$@((linea.Precio * linea.Cantidad).ToString("N2"))</td></tr>
+}
+</tbody><tfoot><tr><th scope="row" colspan="3">Total</th><td>$@Model.Total.ToString("N2")</td></tr></tfoot>
+</table></div>

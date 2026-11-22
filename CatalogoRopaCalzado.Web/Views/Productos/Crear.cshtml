@@ -1,0 +1,14 @@
+@model CatalogoRopaCalzado.ViewModels.ProductoFormulario
+@{ ViewBag.Title = "Añadir producto"; }
+<section class="panel editor">
+    <h1>@ViewBag.Title</h1>
+    @using (Html.BeginForm("Crear", "Productos", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Partial("_Formulario", Model)
+        <div class="acciones">
+            <button class="boton" type="submit">Guardar producto</button>
+            <a class="boton secundario" href="@Url.Action("Index")">Cancelar</a>
+        </div>
+    }
+</section>

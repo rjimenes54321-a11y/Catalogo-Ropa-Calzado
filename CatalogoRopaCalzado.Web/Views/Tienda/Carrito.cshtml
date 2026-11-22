@@ -1,0 +1,49 @@
+@model CompraVista
+@{ ViewBag.Title = "Carrito"; }
+<h1>Carrito</h1>
+@if (Model.Lineas.Count == 0)
+{
+    <p>Tu carrito está vacío.</p><a class="boton" href="@Url.Action("Catalogo")">Explorar catálogo</a>
+}
+else
+{
+    <div class="panel tabla my-4">
+    <table><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th><th>Acción</th></tr></thead><tbody>
+    @foreach (var linea in Model.Lineas)
+    {
+        <tr>
+        <th scope="row">@linea.Producto.Nombre @if (!linea.Disponible) { <span class="d-block peligro-texto">Cantidad no disponible</span> }</th>
+        <td>$@linea.Producto.Precio.ToString("N2")</td>
+        <td>
+        @using (Html.BeginForm("Cantidad", "Tienda", new { id = linea.Producto.ProductoId }, FormMethod.Post, new { @class = "acciones cantidad" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="number" name="cantidad" aria-label="Cantidad de @linea.Producto.Nombre" min="1" max="99" value="@linea.Cantidad" required />
+            <button class="btn btn-outline-secondary btn-sm" type="submit">Actualizar</button>
+        }
+        </td><td>$@linea.Subtotal.ToString("N2")</td><td>
+        @using (Html.BeginForm("Quitar", "Tienda", new { id = linea.Producto.ProductoId }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <button class="btn btn-outline-danger btn-sm" type="submit">Quitar</button>
+        }
+        </td></tr>
+    }
+    </tbody></table></div>
+    <section class="panel editor ms-0">
+    <h2 class="h4">Total $@Model.Total.ToString("N2")</h2>
+    @using (Html.BeginForm("Confirmar", "Tienda", FormMethod.Post, new { @class = "flujo" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="campo">@Html.LabelFor(m => m.Direccion, "Dirección de entrega") @Html.TextAreaFor(m => m.Direccion, new { required = "required", maxlength = "300", rows = "3" }) @Html.ValidationMessageFor(m => m.Direccion)</div>
+        <div class="campo">
+        @Html.LabelFor(m => m.Metodo, "Método de pago")
+        @Html.DropDownListFor(m => m.Metodo, new[] { new SelectListItem { Value = "Efectivo", Text = "Efectivo contra entrega" }, new SelectListItem { Value = "Transferencia", Text = "Transferencia bancaria manual" } }, "Selecciona un método", new { required = "required" })
+        @Html.ValidationMessageFor(m => m.Metodo)
+        </div>
+        if (Model.Disponible) { <button class="boton" type="submit">Confirmar pedido</button> }
+        else { <p>Actualiza o quita los productos no disponibles.</p> }
+    }
+    </section>
+}

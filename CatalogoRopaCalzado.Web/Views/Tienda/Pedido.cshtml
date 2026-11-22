@@ -1,0 +1,5 @@
+@model Pedido
+@{ ViewBag.Title = "Pedido"; }
+<h1>Pedido #@Model.PedidoId</h1>
+@Html.Partial("_Pedido", Model)
+<a href="@Url.Action("Pedidos")">Volver a mis pedidos</a>

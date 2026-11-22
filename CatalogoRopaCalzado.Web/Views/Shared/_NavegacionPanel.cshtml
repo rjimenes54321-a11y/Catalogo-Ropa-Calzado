@@ -1,0 +1,13 @@
+<nav class="lateral" aria-label="Administración">
+    <a href="@Url.Action("Index", "Panel")">Inicio</a>
+    <a href="@Url.Action("Index", "Productos")">Inventario</a>
+    <a href="@Url.Action("Categorias", "Panel")">Categorías</a>
+    <a href="@Url.Action("Pedidos", "Panel")">Pedidos</a>
+    <a href="@Url.Action("Facturacion", "Panel")">Facturación</a>
+    <a href="@Url.Action("Historial", "Panel")">Historial</a>
+    <a href="@Url.Action("Clientes", "Panel")">Clientes</a>
+    <a href="@Url.Action("Reportes", "Panel")">Reportes</a>
+    @if (User.IsInRole(RolesTienda.Administrador)) { <a href="@Url.Action("Usuarios", "Panel")">Usuarios</a> }
+    <a href="@Url.Action("Configuracion", "Panel")">Configuración</a>
+    @Html.Partial("_Salir")
+</nav>

@@ -1,0 +1,9 @@
+@model PanelVista
+@{ ViewBag.Title = "Panel"; }
+<h1>Panel de ventas</h1>
+<dl class="row g-3 mt-2">
+    <div class="col-6 col-lg-3"><div class="panel indicador"><dt>Productos activos</dt><dd>@Model.Productos</dd></div></div>
+    <div class="col-6 col-lg-3"><div class="panel indicador"><dt>Pedidos pendientes</dt><dd>@Model.Pendientes</dd></div></div>
+    <div class="col-6 col-lg-3"><div class="panel indicador"><dt>Ventas confirmadas</dt><dd>@Model.Ventas</dd></div></div>
+    <div class="col-6 col-lg-3"><div class="panel indicador"><dt>Existencias bajas</dt><dd>@Model.StockBajo</dd></div></div>
+</dl>

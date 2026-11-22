@@ -1,0 +1,7 @@
+@model Factura
+@{ ViewBag.Title = "Factura"; }
+<h1>Factura FAC-@Model.FacturaId</h1>
+<p>Comprobante académico interno sin validez fiscal.</p>
+<dl class="detalle"><dt>Pedido</dt><dd>#@Model.PedidoId</dd><dt>Emisión</dt><dd>@Model.Fecha.ToString("dd/MM/yyyy HH:mm") UTC</dd><dt>Vendedor</dt><dd>@Model.VendedorNombre</dd><dt>Subtotal</dt><dd>$@Model.Pedido.Total.ToString("N2")</dd></dl>
+@Html.Partial("_Pedido", Model.Pedido)
+<a href="@Url.Action("Facturacion")">Volver a facturación</a>

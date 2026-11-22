@@ -1,0 +1,11 @@
+@model RegistroCuenta
+@{ ViewBag.Title = "Crear cuenta de comprador"; }
+<section class="panel editor">
+<h1>@ViewBag.Title</h1>
+@using (Html.BeginForm("Registro", "Cuenta", FormMethod.Post, new { @class = "flujo", data_registro = "true" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_Registro", Model)
+    <button class="boton" type="submit">Crear cuenta</button>
+}
+</section>

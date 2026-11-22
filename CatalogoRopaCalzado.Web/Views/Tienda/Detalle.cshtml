@@ -1,0 +1,25 @@
+@model Producto
+@{ ViewBag.Title = Model.Nombre; }
+<section class="panel editor">
+@if (!string.IsNullOrEmpty(Model.Imagen)) { <img class="foto mb-3" src="@Model.Imagen" alt="Foto de @Model.Nombre" referrerpolicy="no-referrer" /> }
+<h1>@Model.Nombre</h1>
+<p>@Model.Categoria.Nombre · Código @Model.Codigo</p>
+<p>@Model.Descripcion</p>
+@if (!string.IsNullOrEmpty(Model.Talla)) { <p>Talla @Model.Talla</p> }
+<p class="precio">$@Model.Precio.ToString("N2")</p>
+<p>@(Model.Stock > 0 ? Model.Stock + " disponibles" : "Agotado")</p>
+@if (Model.Stock > 0 && User.IsInRole(RolesTienda.Comprador))
+{
+    using (Html.BeginForm("Agregar", "Tienda", new { id = Model.ProductoId }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="campo mb-3"><label for="cantidad">Cantidad</label><input name="cantidad" id="cantidad" type="number" min="1" max="@System.Math.Min(99, Model.Stock)" value="1" required /></div>
+        <button class="boton" type="submit">Agregar al carrito</button>
+    }
+}
+else if (Model.Stock > 0 && !User.Identity.IsAuthenticated)
+{
+    <a class="boton" href="@Url.Action("Ingresar", "Cuenta")">Iniciar sesión para comprar</a>
+}
+<a class="d-block mt-3" href="@Url.Action("Catalogo")">Volver al catálogo</a>
+</section>

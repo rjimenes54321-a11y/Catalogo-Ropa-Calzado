@@ -1,0 +1,16 @@
+@model InicioSesion
+@{ ViewBag.Title = "Iniciar sesión"; }
+<section class="panel editor">
+<h1>Iniciar sesión</h1>
+@using (Html.BeginForm("Ingresar", "Cuenta", FormMethod.Post, new { @class = "flujo" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="campo">@Html.LabelFor(m => m.Correo) @Html.TextBoxFor(m => m.Correo, new { type = "email", required = "required", maxlength = "254", autocomplete = "username" }) @Html.ValidationMessageFor(m => m.Correo)</div>
+    <div class="campo">@Html.LabelFor(m => m.Clave, "Contraseña")
+    @Html.PasswordFor(m => m.Clave, new { required = "required", maxlength = "128", autocomplete = ViewBag.EsRegistro == true ? "new-password" : "current-password" })
+    <button class="btn btn-sm btn-outline-secondary" type="button" data-clave="Clave" aria-controls="Clave">Mostrar contraseña</button>
+    @Html.ValidationMessageFor(m => m.Clave)</div>
+    <div class="acciones"><button class="boton" type="submit">Ingresar</button>@Html.ActionLink("Crear cuenta de comprador", "Registro")</div>
+}
+</section>

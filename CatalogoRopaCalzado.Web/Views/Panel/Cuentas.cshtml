@@ -1,0 +1,15 @@
+@model IEnumerable<Usuario>
+@{
+    bool usuarios = string.Equals(ViewContext.RouteData.Values["action"].ToString(), "Usuarios", StringComparison.OrdinalIgnoreCase);
+    ViewBag.Title = usuarios ? "Usuarios" : "Clientes";
+}
+<div class="encabezado"><h1>@ViewBag.Title</h1>
+@if (usuarios) { <a class="boton" href="@Url.Action("Privada", "Cuenta")">Crear cuenta privada</a> }
+</div>
+@if (!Model.Any()) { <p>No hay cuentas registradas.</p> }
+else
+{
+<div class="panel tabla"><table><thead><tr><th>Nombre</th><th>Correo</th><th>Rol</th></tr></thead><tbody>
+@foreach (var cuenta in Model) { <tr><th scope="row">@cuenta.Nombre</th><td>@cuenta.Correo</td><td>@cuenta.Rol</td></tr> }
+</tbody></table></div>
+}

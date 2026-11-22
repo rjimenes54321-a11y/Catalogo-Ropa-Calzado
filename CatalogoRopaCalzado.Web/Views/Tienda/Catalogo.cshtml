@@ -1,0 +1,30 @@
+@model CatalogoVista
+@{ ViewBag.Title = "Catálogo"; }
+<h1>Catálogo</h1>
+<section class="panel mt-4 mb-4" aria-label="Filtros">
+@using (Html.BeginForm("Catalogo", "Tienda", FormMethod.Get, new { @class = "filtros" }))
+{
+    <div class="campo">@Html.LabelFor(m => m.Buscar, "Nombre del producto") @Html.TextBoxFor(m => m.Buscar, new { type = "search", maxlength = "120" })</div>
+    <div class="campo">@Html.LabelFor(m => m.CategoriaId, "Categoría") @Html.DropDownListFor(m => m.CategoriaId, Model.Categorias, "Todas las categorías")</div>
+    <button class="boton" type="submit">Buscar</button>
+    <a class="boton secundario" href="@Url.Action("Catalogo")">Limpiar</a>
+}
+</section>
+@if (Model.Productos.Count == 0) { <p>No hay productos que coincidan con la consulta.</p> }
+<div class="row g-3">
+@foreach (var producto in Model.Productos)
+{
+    <div class="col-12 col-sm-6 col-xl-4">
+        <article class="card h-100 ficha">
+            @if (!string.IsNullOrEmpty(producto.Imagen)) { <img class="card-img-top foto" src="@producto.Imagen" alt="Foto de @producto.Nombre" loading="lazy" referrerpolicy="no-referrer" /> }
+            <div class="card-body">
+                <p class="m-0">@producto.Categoria.Nombre</p>
+                <h2 class="h5 mt-1">@producto.Nombre</h2>
+                <p class="precio">$@producto.Precio.ToString("N2")</p>
+                <p>@(producto.Stock > 0 ? producto.Stock + " disponibles" : "Agotado")</p>
+                <a class="boton secundario" href="@Url.Action("Detalle", new { id = producto.ProductoId })">Ver detalles</a>
+            </div>
+        </article>
+    </div>
+}
+</div>

@@ -1,0 +1,15 @@
+@model IEnumerable<Pedido>
+@if (!Model.Any()) { <p>No hay pedidos registrados.</p> }
+else
+{
+<div class="panel tabla my-4">
+<table><thead><tr><th>Pedido</th><th>Comprador</th><th>Fecha</th><th>Total</th><th>Método</th><th>Pedido</th><th>Pago</th></tr></thead>
+<tbody>
+@foreach (var pedido in Model)
+{
+    <tr><th scope="row">@Html.ActionLink("#" + pedido.PedidoId, "Pedido", new { id = pedido.PedidoId })</th>
+    <td>@pedido.CompradorNombre</td><td>@pedido.Fecha.ToString("dd/MM/yyyy HH:mm") UTC</td>
+    <td>$@pedido.Total.ToString("N2")</td><td>@pedido.MetodoPago</td><td>@pedido.EstadoPedido</td><td>@pedido.EstadoPago</td></tr>
+}
+</tbody></table></div>
+}

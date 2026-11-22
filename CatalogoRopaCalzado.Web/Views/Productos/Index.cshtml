@@ -1,0 +1,61 @@
+@model CatalogoRopaCalzado.ViewModels.CatalogoVista
+@{ ViewBag.Title = "Inventario"; }
+<div class="encabezado">
+    <div>
+        <h1>Inventario</h1>
+        <p>Consulta precios y existencias y administra los productos de la tienda.</p>
+    </div>
+    <a class="boton" href="@Url.Action("Crear")">Añadir producto</a>
+</div>
+<section class="panel" aria-label="Productos">
+    @using (Html.BeginForm("Index", "Productos", FormMethod.Get, new { @class = "filtros" }))
+    {
+        <div class="campo">
+            @Html.LabelFor(m => m.Buscar, "Nombre del producto")
+            @Html.TextBoxFor(m => m.Buscar, new { type = "search", maxlength = "120", placeholder = "Ej. camiseta" })
+        </div>
+        <div class="campo">
+            @Html.LabelFor(m => m.CategoriaId, "Categoría")
+            @Html.DropDownListFor(m => m.CategoriaId, Model.Categorias, "Todas las categorías")
+        </div>
+        <button class="boton" type="submit">Buscar</button>
+        <a class="boton secundario" href="@Url.Action("Index")">Limpiar</a>
+    }
+    <div class="resultados">@(Model.Productos.Count == 1 ? "1 producto" : Model.Productos.Count + " productos")</div>
+    @if (Model.Productos.Count == 0)
+    {
+        <p class="vacio">No hay productos que coincidan con la consulta.</p>
+    }
+    else
+    {
+        <div class="tabla" tabindex="0" role="region" aria-label="Resultados del catálogo">
+            <table>
+                <thead><tr>
+                    <th scope="col">Producto</th><th scope="col">Categoría</th><th scope="col">Estado</th>
+                    <th scope="col">Precio (USD)</th><th scope="col">Existencias</th><th scope="col">Acciones</th>
+                </tr></thead>
+                <tbody>
+                    @foreach (var producto in Model.Productos)
+                    {
+                        <tr>
+                            <th scope="row">@producto.Nombre <small class="d-block">@producto.Codigo</small></th>
+                            <td>@producto.Categoria.Nombre</td>
+                            <td>@(producto.Activo ? "Activo" : "Inactivo")</td>
+                            <td class="numero">@producto.Precio.ToString("N2")</td>
+                            <td class="numero">@(producto.Stock == 0 ? "0 · Agotado" : producto.Stock.ToString())</td>
+                            <td>
+                                <div class="acciones">
+                                    <a href="@Url.Action("Editar", new { id = producto.ProductoId })" aria-label="Editar @producto.Nombre">Editar</a>
+                                    @if (producto.Activo)
+                                    {
+                                        <a class="peligro-texto" href="@Url.Action("Eliminar", new { id = producto.ProductoId })" aria-label="Desactivar @producto.Nombre">Desactivar</a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

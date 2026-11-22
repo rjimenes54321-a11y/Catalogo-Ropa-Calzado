@@ -1,0 +1,15 @@
+@model RegistroCuenta
+@{ ViewBag.Title = "Crear cuenta privada"; }
+<section class="panel editor">
+<h1>@ViewBag.Title</h1>
+@using (Html.BeginForm("Privada", "Cuenta", FormMethod.Post, new { @class = "flujo", data_registro = "true" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_Registro", Model)
+    <div class="campo"><label for="Rol">Rol</label>
+        @Html.DropDownListFor(m => m.Rol, new SelectList(new[] { RolesTienda.Vendedor, RolesTienda.Administrador }))
+        @Html.ValidationMessageFor(m => m.Rol)
+    </div>
+    <button class="boton" type="submit">Crear cuenta privada</button>
+}
+</section>

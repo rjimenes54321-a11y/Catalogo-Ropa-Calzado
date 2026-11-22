@@ -1,0 +1,5 @@
+@using (Html.BeginForm("Salir", "Cuenta", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="salir">Cerrar sesión</button>
+}

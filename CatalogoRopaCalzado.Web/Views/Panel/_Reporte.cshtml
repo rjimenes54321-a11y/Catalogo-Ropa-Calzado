@@ -1,0 +1,8 @@
+@model IEnumerable<FilaReporte>
+@if (!Model.Any()) { <p>No hay productos para este reporte.</p> }
+else
+{
+<div class="panel tabla"><table><thead><tr><th>Producto</th><th>Unidades</th></tr></thead><tbody>
+@foreach (var fila in Model) { <tr><th scope="row">@fila.Nombre</th><td>@fila.Cantidad</td></tr> }
+</tbody></table></div>
+}

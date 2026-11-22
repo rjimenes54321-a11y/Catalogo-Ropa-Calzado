@@ -1,0 +1,7 @@
+@model string
+@{ ViewBag.Title = "Operación interrumpida"; }
+<section class="panel editor">
+    <h1>@ViewBag.Title</h1>
+    <p>@Model</p>
+    <a class="boton secundario" href="@Url.Action("Catalogo", "Tienda")">Volver al catálogo</a>
+</section>

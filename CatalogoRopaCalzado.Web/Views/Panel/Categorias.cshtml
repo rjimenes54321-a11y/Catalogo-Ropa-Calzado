@@ -1,0 +1,26 @@
+@model IEnumerable<Categoria>
+@{ ViewBag.Title = "Categorías"; }
+<h1>Categorías</h1>
+<section class="panel editor ms-0 my-4">
+<h2 class="h5">Añadir categoría</h2>
+@using (Html.BeginForm("Categoria", "Panel", FormMethod.Post, new { @class = "acciones" }))
+{
+    @Html.AntiForgeryToken()
+    <input name="nombre" aria-label="Nombre de la nueva categoría" maxlength="60" required />
+    <button class="boton" type="submit">Añadir</button>
+}
+</section>
+<div class="panel tabla"><table><thead><tr><th>Código</th><th>Nombre</th></tr></thead>
+<tbody>
+@foreach (var categoria in Model)
+{
+    <tr><th scope="row">#@categoria.CategoriaId</th><td>
+    @using (Html.BeginForm("Categoria", "Panel", new { id = categoria.CategoriaId }, FormMethod.Post, new { @class = "acciones" }))
+    {
+        @Html.AntiForgeryToken()
+        <input name="nombre" aria-label="Nombre de @categoria.Nombre" value="@categoria.Nombre" maxlength="60" required />
+        <button class="boton secundario" type="submit">Guardar</button>
+    }
+    </td></tr>
+}
+</tbody></table></div>

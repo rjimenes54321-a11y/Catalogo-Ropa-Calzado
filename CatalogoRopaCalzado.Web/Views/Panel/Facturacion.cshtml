@@ -1,0 +1,15 @@
+@model IEnumerable<Factura>
+@{ ViewBag.Title = "Facturación"; }
+<h1>Facturación</h1>
+@if (!Model.Any()) { <p>Todavía no hay facturas. Puedes generarlas desde los pedidos pagados.</p> }
+else
+{
+<div class="panel tabla my-4">
+<table><thead><tr><th>Factura</th><th>Pedido</th><th>Comprador</th><th>Total</th></tr></thead><tbody>
+@foreach (var f in Model)
+{
+    <tr><th scope="row">@Html.ActionLink("FAC-" + f.FacturaId, "Factura", new { id = f.FacturaId })</th>
+    <td>#@f.PedidoId</td><td>@f.Pedido.CompradorNombre</td><td>$@f.Pedido.Total.ToString("N2")</td></tr>
+}
+</tbody></table></div>
+}

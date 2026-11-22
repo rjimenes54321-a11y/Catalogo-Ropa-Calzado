@@ -1,0 +1,13 @@
+@model RegistroCuenta
+@{ ViewBag.EsRegistro = true; }
+@Html.ValidationSummary(true)
+<div class="campo">@Html.LabelFor(m => m.Nombre, "Nombre completo") @Html.TextBoxFor(m => m.Nombre, new { required = "required", maxlength = "120", autocomplete = "name" }) @Html.ValidationMessageFor(m => m.Nombre)</div>
+<div class="campo">@Html.LabelFor(m => m.Correo) @Html.TextBoxFor(m => m.Correo, new { type = "email", required = "required", maxlength = "254", autocomplete = "email" }) @Html.ValidationMessageFor(m => m.Correo)</div>
+<div class="campo">@Html.LabelFor(m => m.Clave, "Contraseña")
+    @Html.PasswordFor(m => m.Clave, new { required = "required", maxlength = "128", autocomplete = ViewBag.EsRegistro == true ? "new-password" : "current-password" })
+    <button class="btn btn-sm btn-outline-secondary" type="button" data-clave="Clave" aria-controls="Clave">Mostrar contraseña</button>
+    @Html.ValidationMessageFor(m => m.Clave)</div>
+<div class="campo">@Html.LabelFor(m => m.Confirmacion, "Confirma la contraseña")
+    @Html.PasswordFor(m => m.Confirmacion, new { required = "required", maxlength = "128", autocomplete = "new-password" })
+    <small>Al menos 8 caracteres, con mayúscula, minúscula y número.</small>
+    @Html.ValidationMessageFor(m => m.Confirmacion)</div>

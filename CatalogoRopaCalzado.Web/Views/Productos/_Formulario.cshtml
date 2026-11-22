@@ -1,0 +1,46 @@
+@model CatalogoRopaCalzado.ViewModels.ProductoFormulario
+@Html.ValidationSummary(true)
+<div class="campos">
+    <div class="campo">
+        @Html.LabelFor(m => m.Codigo, "Código")
+        @Html.TextBoxFor(m => m.Codigo, new { maxlength = "40", required = "required" })
+        @Html.ValidationMessageFor(m => m.Codigo)
+    </div>
+    <div class="campo ancho">
+        @Html.LabelFor(m => m.Descripcion, "Descripción")
+        @Html.TextAreaFor(m => m.Descripcion, new { maxlength = "500", rows = "3" })
+        @Html.ValidationMessageFor(m => m.Descripcion)
+    </div>
+    <div class="campo ancho">
+        @Html.LabelFor(m => m.Imagen, "URL HTTPS de la fotografía")
+        @Html.TextBoxFor(m => m.Imagen, new { type = "url", maxlength = "500" })
+        @Html.ValidationMessageFor(m => m.Imagen)
+    </div>
+    <label class="seleccion">@Html.CheckBoxFor(m => m.Activo) Producto activo</label>
+    <div class="campo ancho">
+        @Html.LabelFor(m => m.Nombre)
+        @Html.TextBoxFor(m => m.Nombre, new { maxlength = "120", required = "required" })
+        @Html.ValidationMessageFor(m => m.Nombre)
+    </div>
+    <div class="campo">
+        @Html.LabelFor(m => m.CategoriaId)
+        @Html.DropDownListFor(m => m.CategoriaId, Model.Categorias, "Selecciona una categoría", new { required = "required" })
+        @Html.ValidationMessageFor(m => m.CategoriaId)
+    </div>
+    <div class="campo">
+        @Html.LabelFor(m => m.Talla, "Talla (opcional)")
+        @Html.TextBoxFor(m => m.Talla, new { maxlength = "30", placeholder = "Ej. M o 38" })
+        @Html.ValidationMessageFor(m => m.Talla)
+    </div>
+    <div class="campo">
+        @Html.LabelFor(m => m.Precio)
+        @Html.TextBoxFor(m => m.Precio, new { inputmode = "decimal", required = "required", placeholder = "Ej. 19.95", aria_describedby = "ayuda-precio" })
+        <small id="ayuda-precio">Usa un punto decimal, sin separador de miles.</small>
+        @Html.ValidationMessageFor(m => m.Precio)
+    </div>
+    <div class="campo">
+        @Html.LabelFor(m => m.Stock)
+        @Html.TextBoxFor(m => m.Stock, new { type = "number", min = "0", step = "1", required = "required" })
+        @Html.ValidationMessageFor(m => m.Stock)
+    </div>
+</div>

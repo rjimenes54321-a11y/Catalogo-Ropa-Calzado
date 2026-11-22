@@ -1,0 +1,32 @@
+@model Pedido
+@{ ViewBag.Title = "Pedido"; }
+<h1>Pedido #@Model.PedidoId</h1>
+@Html.Partial("_Pedido", Model)
+<div class="acciones">
+@if (Model.Estado == "Pendiente")
+{
+    using (Html.BeginForm("Pago", "Panel", new { id = Model.PedidoId }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <button class="boton" type="submit">Confirmar pago recibido</button>
+    }
+    using (Html.BeginForm("Cancelar", "Panel", new { id = Model.PedidoId }, FormMethod.Post, new { data_confirmar = "¿Cancelar el pedido y devolver sus existencias?" }))
+    {
+        @Html.AntiForgeryToken()
+        <button class="boton peligro" type="submit">Cancelar pedido</button>
+    }
+}
+@if (ViewBag.FacturaId != null)
+{
+    <a class="boton" href="@Url.Action("Factura", new { id = ViewBag.FacturaId })">Ver factura</a>
+}
+else if (Model.Estado == "Pagado")
+{
+    using (Html.BeginForm("Facturar", "Panel", new { id = Model.PedidoId }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <button class="boton" type="submit">Generar factura</button>
+    }
+}
+<a href="@Url.Action("Pedidos")">Volver a pedidos</a>
+</div>

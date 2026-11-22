@@ -1,0 +1,20 @@
+@model CatalogoRopaCalzado.Models.Producto
+@{ ViewBag.Title = "Desactivar producto"; }
+<section class="panel editor">
+    <h1>@ViewBag.Title</h1>
+    <p>¿Quieres retirar <strong>@Model.Nombre</strong> del catálogo de compradores?</p>
+    <dl class="detalle">
+        <dt>Categoría</dt><dd>@Model.Categoria.Nombre</dd>
+        <dt>Talla</dt><dd>@(Model.Talla ?? "—")</dd>
+        <dt>Precio (USD)</dt><dd>@Model.Precio.ToString("N2")</dd>
+        <dt>Existencias</dt><dd>@Model.Stock</dd>
+    </dl>
+    @using (Html.BeginForm("Eliminar", "Productos", new { id = Model.ProductoId }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="acciones">
+            <button class="boton peligro" type="submit">Confirmar desactivación</button>
+            <a class="boton secundario" href="@Url.Action("Index")">Cancelar</a>
+        </div>
+    }
+</section>
